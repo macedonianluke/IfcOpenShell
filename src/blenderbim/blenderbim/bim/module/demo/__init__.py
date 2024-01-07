@@ -36,6 +36,7 @@ from . import ui, prop, operator
 classes = (
     operator.DemonstrateHelloWorld,
     operator.DemonstrateRenameProject,
+    operator.CreateAssembly,
     prop.BIMDemoProperties,
     ui.BIM_PT_demo,
 )

@@ -30,8 +30,22 @@
 # processing, and more.
 
 import bpy
+import bmesh
+import struct
+import hashlib
+import logging
+import numpy as np
+import ifcopenshell
 import blenderbim.core.tool
+import blenderbim.core.style
+import blenderbim.core.spatial
 import blenderbim.tool as tool
+import blenderbim.bim.import_ifc
+from math import radians, pi
+from mathutils import Vector, Matrix
+from blenderbim.bim.ifc import IfcStore
+import ifcopenshell.api
+import ifcopenshell.util.unit
 
 
 # There is always one class in each tool file, which implements the interface
@@ -64,3 +78,52 @@ class Demo(blenderbim.core.tool.Demo):
     @classmethod
     def show_user_hints(cls):
         bpy.context.scene.BIMDemoProperties.show_hints = True
+        
+    
+    
+
+    
+    def get_assembly(cls, assembly_name):
+        
+        model = IfcStore.get_file()
+        
+        #check if assembly by name already exists
+        elements = model.by_type('IfcElementAssembly')
+        
+        for element in elements:
+            if element.Name == assembly_name:
+                print("Assembly name already exists")
+                return element                
+            else:
+                pass
+            
+    @classmethod       
+    def create_assembly(cls):
+
+            context = IfcStore.get_file()
+            
+            print(context)
+            
+            assembly_name = bpy.context.scene.BIMDemoProperties.assembly_name
+            
+            storey = context.by_type("IfcBuildingStorey")[0]
+            
+            assembly = cls.get_assembly(context,assembly_name)
+            
+            if  assembly is None:           
+            
+            
+                #create wall assemlby
+                assembly = ifcopenshell.api.run("root.create_entity",context, ifc_class = "IfcElementAssembly")
+
+                #change name of assembly
+                assembly.Name = assembly_name
+                
+                #assign container
+                ifcopenshell.api.run("spatial.assign_container", context, relating_structure = storey, product = assembly)           
+                
+                print("Assembly created")
+                
+            else:   
+                print("assembly with that name already exists")             
+                return None 

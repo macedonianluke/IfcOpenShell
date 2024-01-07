@@ -77,3 +77,19 @@ class DemonstrateRenameProject(bpy.types.Operator, tool.Ifc.Operator):
         # properties (such as an input field) or data from the scene (like the
         # actively selected object).
         core.demonstrate_rename_project(tool.Ifc, tool.Demo, name=bpy.context.scene.BIMDemoProperties.name)
+
+# This class, just like the one above, will correlate to another button in the
+# interface. It has a different ID and a different label.
+class CreateAssembly(bpy.types.Operator, tool.Ifc.Operator):
+    bl_idname = "bim.create_assembly"
+    bl_label = "create_assembly"
+    bl_options = {"REGISTER", "UNDO"}
+    bl_description = "creates an assembly with a select name"
+
+    def _execute(self, context):
+        # This core function requires three inputs: two tools, and a name
+        # string. In this case, the name is taken from some custom Blender
+        # properties. Generally, the inputs to the core function will come from
+        # properties (such as an input field) or data from the scene (like the
+        # actively selected object).
+        core.create_assembly(tool.Demo)

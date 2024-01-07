@@ -59,6 +59,7 @@ class DemoData:
         cls.data = {
             "has_project": cls.has_project(),
             "project_name": cls.project_name(),
+            "assembly_name": None,
         }
         cls.is_loaded = True
 

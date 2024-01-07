@@ -71,3 +71,13 @@ def demonstrate_rename_project(ifc, demo, name=None):
         demo.hide_user_hints()
     else:
         demo.show_user_hints()
+        
+
+def create_assembly(demo):
+    # We're telling the demo tool to set a message. We aren't interested how the
+    # tool works, that's a detail. We aren't interested in the interface, like
+    # where the message is shown. You can name these functions whatever you feel
+    # best describes what's going on, like if you had to describe the feature to
+    # someone else.
+    demo.create_assembly()
+    

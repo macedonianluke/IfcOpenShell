@@ -129,3 +129,20 @@ class BIM_PT_demo(bpy.types.Panel):
         if self.props.show_hints:
             row = self.layout.row()
             row.label(text="Name cannot be blank!")
+            
+        # new test create assembly with name input
+        
+        row = self.layout.row(align=True)
+        row.label(text="Assembly Name")
+        row.label(text=DemoData.data["assembly_name"])
+
+        row = self.layout.row()
+        
+        row.prop(self.props, "assembly_name")
+        row = self.layout.row()
+        # Here's another button, referencing another operator.
+        row.operator("bim.create_assembly")
+
+        if self.props.show_hints:
+            row = self.layout.row()
+            row.label(text="Name cannot be blank!")

@@ -54,6 +54,7 @@ class BIMDemoProperties(PropertyGroup):
     # represent a text input field. We can give it a name and a default value.
     # The name will be the label shown next to the input field in the interface.
     name: StringProperty(name="Name", default="New Project Name")
+    assembly_name: StringProperty(name="assembly_name", default="New Assembly Name")
     # Not all properties need to be shown using their equivalent input widget.
     # In this case, we can store a message string, but we will never show it as
     # an input text field in the ui.py.
